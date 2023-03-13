@@ -1,3 +1,20 @@
+
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+
+# Coveralls
+.nyc_output
+coverage
+
+# Benchmarking
+benchmarks/graphs
+
+# ignore additional files using core.excludesFile
+# https://git-scm.com/docs/gitignore
+=======
 # Logs
 logs
 *.log
@@ -102,3 +119,4 @@ dist
 
 # TernJS port file
 .tern-port
+>>>>>>> 2d043579b390744b2a1c6c48ef65c5c74368489d

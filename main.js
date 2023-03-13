@@ -25,7 +25,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 
-app.use('/', indexRouter);
+app.use('', indexRouter);
 app.use('/teste', usersRouter);
 
 

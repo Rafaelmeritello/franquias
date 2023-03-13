@@ -4,11 +4,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+
 
 var app = express();
-app.listen(21057, () => {
+app.listen(21058, () => {
   console.log('Servidor iniciado na porta 21057');
 });
 
@@ -20,6 +19,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

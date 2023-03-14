@@ -51,15 +51,16 @@
 
 
 <style>
-
-@media only screen and (min-width: 600px) {
-
-  .scale_changer{
-   transform: scale(1.1);
+@media screen and (max-width: 767px) {
+  .scale_changer {
+    transform: scale(2);
   }
-  }
-.scale_changer{
-  transform: scale(1.5)
 }
 
+/* definir uma escala menor para dispositivos maiores */
+@media screen and (min-width: 768px) {
+  .scale_changer {
+    transform: scale(1.2);
+  }
+}
 </style>

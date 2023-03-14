@@ -8,21 +8,37 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <div class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="d-flex align-items-center justify-content-center" style="height: 80vh;">
   <div class="container">
     <div class="row">
       <div class="col-md-6 mx-auto">
       
-        <div class="card border border-primary shadow-0 " style="background-color:#ffab01;">
-  <div class="card-header">Featured</div>
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">
-      Some quick example text to build on the card title and make up the bulk of the
-      card's content.
-    </p>
-
-    <button type="button" class="btn btn-primary">Button</button>
+        <div class="card border border-primary shadow-0 " style="height: 20em; width: 40vw; background-color:#ffab01;">
+  <div class="card-header text-center">LOGIN</div>
+  <div class="card-body text-center">
+    <h5 class="card-title"></h5>
+    
+  <form id="contactForm" data-sb-form-api-token="API_TOKEN">
+        <div class="mb-3">
+            <label class="form-label" for="usuario">Usuario</label>
+            <input class="form-control" id="usuario" type="text" placeholder="Usuario" data-sb-validations="required" />
+            <div class="invalid-feedback" data-sb-feedback="usuario:required">Usuario is required.</div>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="senha">Senha</label>
+            <input class="form-control" id="senha" type="text" placeholder="Senha" data-sb-validations="required" />
+            <div class="invalid-feedback" data-sb-feedback="senha:required">Senha is required.</div>
+        </div>
+    
+        <div class="d-none" id="submitErrorMessage">
+            <div class="text-center text-danger mb-3">Error sending message!</div>
+        </div>
+        <div class="d-grid">
+            <button class="btn btn-primary btn-lg" id="submitButton" type="submit">Entrar</button>
+        </div>
+    </form>  
+  
+  
   </div>
 </div>
       </div>

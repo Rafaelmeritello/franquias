@@ -8,7 +8,7 @@ const session = require('express-session');
 
 var app = express();
 app.listen(21058, () => {
-  console.log('Servidor iniciado na porta 21057');
+  console.log('Servidor iniciado na porta 21058');
 });
 
 app.set('views', path.join(__dirname, 'views'));

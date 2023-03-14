@@ -8,19 +8,19 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <div class="d-flex align-items-center justify-content-center" style="height: 80vh;">
+    <div class="d-flex align-items-center " style="height: 80vh;">
   <div class="container">
     <div class="row">
-      <div class="col-md-6 mx-auto">
+      <div class="col-12 m-auto">
       
-        <div class="card border border-primary shadow-0 scale_changer" style="height: 20em; width: 40vw; background-color:#ffab01; ">
+        <div class="card border border-primary shadow-0 scale_changer m-auto" style="height: 20em; width: 40vw; background-color:#ffab01; ">
   <div class="card-header text-center">LOGIN</div>
   <div class="card-body text-center">
     <h5 class="card-title"></h5>
     
   <form id="contactForm" >
         <div class="mb-3">
-            <label class="form-label" for="usuario">Usuarioa</label>
+            <label class="form-label" for="usuario">Usuario</label>
             <input class="form-control" id="usuario" type="text" placeholder="Usuario" data-sb-validations="required" />
             <div class="invalid-feedback" data-sb-feedback="usuario:required">Usuario is required.</div>
         </div>
@@ -38,7 +38,7 @@
         </div>
     </form>  
   
-  
+
   </div>
 </div>
       </div>
@@ -51,16 +51,13 @@
 
 
 <style>
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 980px) and (orientation: portrait){
   .scale_changer {
-    transform: scale(2);
+    transform: scale(2.2);
+    margin: auto;
+    
   }
 }
 
-/* definir uma escala menor para dispositivos maiores */
-@media screen and (min-width: 768px) {
-  .scale_changer {
-    transform: scale(1.2);
-  }
-}
+
 </style>

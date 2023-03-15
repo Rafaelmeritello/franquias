@@ -23,7 +23,7 @@ app.use(session({
   resave: false, // Não salva a sessão no servidor a cada requisição
   saveUninitialized: true, // Salva uma sessão vazia se não houver dados
   cookie: {
-    maxAge: 25 * 60 * 1000 // Tempo de expiração do cookie da sessão em milissegundos
+    maxAge: 24* 60 * 1000 // Tempo de expiração do cookie da sessão em milissegundos
   }
 }));
 

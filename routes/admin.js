@@ -79,13 +79,20 @@ router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
 
 
 //make a route for render model page including titulo and pagina variables
-router.get('/cadastroloja',login_administrador_obrigatorio, function(req, res, next) {
+router.get('/cadastroafiliado',login_administrador_obrigatorio, function(req, res, next) {
 
 
  
-  res.render('model', {titulo:"Cadastro", pagina:'cadastro_loja.ejs', regioes:regioes});
+  res.render('model', {titulo:"Cadastro", pagina:'cadastro_afiliado.ejs', regioes:regioes});
 })
 
+
+
+
+router.post('/cadastroafiliado',login_administrador_obrigatorio, function(req, res, next) {
+  console.log(req.body)
+  res.redirect('/admin/painel')
+})
 module.exports = router;
 
 

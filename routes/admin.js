@@ -76,5 +76,15 @@ router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
 })
 
 
+
+//make a route for render model page including titulo and pagina variables
+router.get('/cadastroloja',login_administrador_obrigatorio, function(req, res, next) {
+
+
+
+  res.render('model', {titulo:"Cadastro", pagina:'cadastro_loja.ejs'});
+})
+
 module.exports = router;
+
 

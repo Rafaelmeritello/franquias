@@ -3,7 +3,7 @@
     <form action="/cadastroloja" method="post">
 
 
-        
+
         <div class="form-group mt-2">
             <label for="nome_loja">Nome da loja</label>
             <input type="text" class="form-control" id="nome_loja" name="nome_loja" placeholder="Nome da loja">
@@ -33,8 +33,14 @@
 
 
         <div class="form-group mt-2">
-            <label for="regiao">Regiao</label>
-            <input type="text" class="form-control" id="regiao" name="regiao" placeholder="Regiao">
+            <label for="regiao">Região</label>
+            <select class="form-control" name="regiao" id="regiao">
+                <% for (let i = 0; i < regioes.length; i++) { %>
+                  <option value="<%= regioes[i] %>"><%= regioes[i] %></option>
+                <% } %>
+            </select>
+
+
         </div>
 
 

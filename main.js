@@ -11,6 +11,8 @@ app.listen(21058, () => {
   console.log('Servidor iniciado na porta 21058...');
 });
 
+
+
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -47,6 +49,39 @@ app.use(function(req, res, next) {
 
 
 
+
+
+
+
+
+
+const regioes = [
+  'NITERÓI REGIAO OCEANICA'
+  ,'NITERÓI CENTRO'
+  ,'NITERÓI OUTROS BAIRROS'
+  ,'RIO DE JANEIRO - CENTRO'
+  ,'RIO DE JANEIRO - ZONA NORTE'
+  ,'RIO DE JANEIRO - ZONA OESTE'
+  ,'RIO DE JANEIRO - ZONA SUL'
+  ,'REGIAO DOS LAGOS - MARICA'
+  ,'REGIAO DOS LAGOS CABO FRIO'
+  ,'REGIAO DOS LAGOS - SAQUAREMA'
+  ,'REGIAO DOS LAGOS - ARARUAMA'
+  ,'SAO GONCALO' 
+  ,'REGIAO SERRANA'
+]
+
+
+module.exports = {
+  app: app,
+  regioes: regioes,
+};
+
+
+
+
+
+
 var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/users');
 
@@ -56,7 +91,3 @@ app.use('/teste', usersRouter);
 
 
 
-module.exports = {
-  app: app,
-
-};

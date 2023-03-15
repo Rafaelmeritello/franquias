@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const bcryptInstance = bcrypt;
 
-
+const { regioes } = require('../main.js');
 
 function login_administrador_obrigatorio(req,res,next){
   if(req.session.administrador){
@@ -17,6 +17,7 @@ function login_administrador_obrigatorio(req,res,next){
 }
 
 router.get('/login/:numero?', function(req, res, next) {
+  console.log(regioes)
   delete req.session.administrador
     param = req.params.numero
     erro = undefined;
@@ -81,8 +82,8 @@ router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
 router.get('/cadastroloja',login_administrador_obrigatorio, function(req, res, next) {
 
 
-
-  res.render('model', {titulo:"Cadastro", pagina:'cadastro_loja.ejs'});
+ 
+  res.render('model', {titulo:"Cadastro", pagina:'cadastro_loja.ejs', regioes:regioes});
 })
 
 module.exports = router;

@@ -71,7 +71,7 @@ router.post('/login', function(req,res){
 
 
 router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
-  console.log(req.session)
+  
   res.render('model', {titulo:"Painel de controle", pagina:'painel.ejs'});
 })
 

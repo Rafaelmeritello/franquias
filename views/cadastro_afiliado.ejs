@@ -1,4 +1,5 @@
 <div class="d-flex justify-content-center align-items-center">
+
 <div class="container  mt-5 p-4" style="background-color:#ffab01; border-radius: 15px;">
     <form action="/admin/cadastroafiliado" method="post">
 
@@ -53,6 +54,12 @@
             <label for="cpf_cnpj">CNPJ/CPF</label>
             <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="CNPJ">
         </div>
+
+    <div class="form-group mt-2">
+            <label for="assistencia" class='form-check-label' >Oferecer assistencia tecnica ?</label>
+            <input type="checkbox" class="form-check-input" id="assistencia" name="assistencia" >
+    </div>
+
        <center><button type="submit" class="btn btn-success mt-5">CADASTRAR</button></center> 
         
     </form>
@@ -60,3 +67,13 @@
 </div>
 
 </div>
+<script>
+
+    err = '<%= err %>'
+    if(err != ''){
+        alert(err)
+        window.location.href = '/admin/cadastroafiliado'
+    }
+    
+
+</script>

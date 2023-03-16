@@ -1,10 +1,10 @@
 
-<h1 class='text-center mt-2'><%= code %></h1>
+
 <div class="d-flex justify-content-center align-items-center">
 
 
 <div class="container  mt-2 p-4" style="background-color:#ffab01; border-radius: 15px;">
-    <form action="/admin/cadastroafiliado" method="post">
+    <form action="/admin/cadastroafiliado" id="form" method="post">
 
 
 
@@ -44,7 +44,7 @@
             <label for="regiao">Região</label>
             <select class="form-control" name="regiao" id="regiao">
                 <% for (let i = 0; i < regioes.length; i++) { %>
-                  <option value="<%= regioes[i] %>"><%= regioes[i] %></option>
+                  <option value=<%= regioes[i] %>"><%= regioes[i] %></option>
                 <% } %>
             </select>
 
@@ -63,10 +63,17 @@
             <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="CNPJ">
         </div>
 
-    <div class="form-group mt-2">
-            <label for="assistencia" class='form-check-label' >Oferecer assistencia tecnica ?</label>
-            <input type="checkbox" class="form-check-input" id="assistencia" name="assistencia" >
-    </div>
+        <div class="form-group mt-2">
+            <label for="assistencia">Oferecer assistencia tecnica ?</label>
+            <select class="form-control" name="assistencia" id="assistencia">
+                    
+                <option value="sim">Sim</option>
+                <option value="nao">Não</option>
+            </select>
+
+
+        </div>
+
 
        <center><button type="submit" class="btn btn-success mt-5">CADASTRAR</button></center> 
         
@@ -81,7 +88,59 @@
     if(err != ''){
         alert(err)
         window.location.href = '/admin/cadastroafiliado'
+    
     }
+
+
+
+
+    $('#form').submit(function(e){
+    
+    var erro = false
+    var form = $(this);
+    obrigatorio = ['nome_loja', 'nome_proprietario', 'palavra_passe', 'telefone', 'email', 'cpf_cnpj', 'assistencia', 'codigo'];
+    for (let i = 0; i < obrigatorio.length; i++) {
+        if ($('#'+obrigatorio[i]).val() == '') {
+            erro = true
+            alert('Preencha todos os campos');
+            return;
+        }
+    }
+
+
+
+
+    if(erro == true){
+        e.preventDefault();
+        
+    }else{
+        form.submit();
+    }
+
+});
+
+
+
+
+
+
+      $('#codigo').blur(function(){
+        var codigo = $(this).val()
+        $.ajax({
+            url: '/admin/codigoexistente',
+            type: 'post',
+            data: {codigo: codigo},
+            success: function(data){
+                if(data == true){
+
+                    alert('Código já existe')
+
+                    $('#codigo').val('')
+                }
+            }
+      })  
+
+    })
     
 
 </script>

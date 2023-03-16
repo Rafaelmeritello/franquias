@@ -10,6 +10,10 @@ const { regioes } = require('../main.js');
 
 
 
+
+
+
+// - inicio - funcoes - inicio - //
 async function gerarCodigo() {
   let valid = false;
   while(!valid) {
@@ -25,6 +29,7 @@ async function gerarCodigo() {
 
 
 
+
 function login_administrador_obrigatorio(req,res,next){
   if(req.session.administrador){
     next()
@@ -32,6 +37,13 @@ function login_administrador_obrigatorio(req,res,next){
     res.redirect('/admin/login')
   }
 }
+// - fim - funções  - fim - //
+
+
+
+
+
+
 
 router.get('/login/:numero?', function(req, res, next) {
   
@@ -50,6 +62,9 @@ router.get('/login/:numero?', function(req, res, next) {
   
   
 });
+
+
+
 
 
 router.post('/login', function(req,res){
@@ -88,14 +103,43 @@ router.post('/login', function(req,res){
 
 
 
+
 router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
-  
+  var msg = req.query.msg;
   res.render('model', {titulo:"Painel de controle", pagina:'painel.ejs'});
 })
 
 
 
-//make a route for render model page including titulo and pagina variables
+
+
+
+
+
+
+
+router.post('/codigoexistente', function(req, res, next) {
+  var codigo = req.body.codigo;
+  databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {codigo: codigo}).then((result) => {
+    if(result) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  }).catch((err) => {
+    console.error(err);
+    res.send(false);
+  });
+});
+
+
+
+
+
+
+
+
+
 router.get('/cadastroafiliado', login_administrador_obrigatorio, function(req, res) {
   
   gerarCodigo().then((result) => {
@@ -112,21 +156,45 @@ router.get('/cadastroafiliado', login_administrador_obrigatorio, function(req, r
 
 
 
-router.post('/cadastroafiliado',login_administrador_obrigatorio, function(req, res, next) {
+
+
+
+
+router.post('/cadastroafiliado',login_administrador_obrigatorio, async function(req, res, next) {
   body = req.body
   
-//obrigatorio = ['nome_loja','nome_proprietario','palavra_passe', 'telefone', 'email','','cpf_cnpj','assistencia']
-//for(item in obrigatorio){
-//    campo = body[obrigatorio[item]]
-  //  if(campo == undefined){
-    //    res.redirect('/admin/cadastroafiliado?err=esta faltando campos para preencher')
-    //}
+  err = false
+  obrigatorio = ['nome_loja','nome_proprietario','palavra_passe', 'telefone', 'email','cpf_cnpj','assistencia','codigo']
+for(item in obrigatorio){
+   campo = body[obrigatorio[item]]
+   if(campo == undefined){
+       console.log(campo)
+       err = true;
+       res.redirect('/admin/cadastroafiliado?err=esta faltando campos para preencher')
 
-//}
+    }
+
+}
+
+await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {codigo: body.codigo}).then((result) => {
+  if(result) {
+    err = true;
+    res.redirect('/admin/cadastroafiliado?err=este codigo ja esta sendo usado')
+  }
+})
+
+
+
+if(err == false){
 
   databaseAdmin.InserirObjeto('afiliados',body)
   res.redirect('/admin/painel')
+}
 })
+
+
+
+
 module.exports = router;
 
 

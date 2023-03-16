@@ -141,9 +141,7 @@ router.post('/codigoexistente', function(req, res, next) {
 
 
 router.get('/cadastroafiliado',  function(req, res) {
-  if(req.session.administrador){
-    next()
-  }else{
+  if(!req.session.administrador){
     res.send('acesso negado')
   }
   gerarCodigo().then((result) => {

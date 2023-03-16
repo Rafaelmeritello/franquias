@@ -8,6 +8,23 @@ const bcryptInstance = bcrypt;
 
 const { regioes } = require('../main.js');
 
+
+
+async function gerarCodigo() {
+  let valid = false;
+  while(!valid) {
+    const code = Math.floor(Math.random()*9000)+1000;
+    const result = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {codigo: code});
+    
+    if(!result) {
+      valid = true;
+      return code;
+    }
+  }
+}
+
+
+
 function login_administrador_obrigatorio(req,res,next){
   if(req.session.administrador){
     next()
@@ -79,14 +96,19 @@ router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
 
 
 //make a route for render model page including titulo and pagina variables
-router.get('/cadastroafiliado', function(req, res) {
+router.get('/cadastroafiliado', login_administrador_obrigatorio, function(req, res) {
   
-  var err = req.query.err
-  code = Math.floor(Math.random()*9000)+1000
-  
-  res.render('model', {titulo:"Cadastro", pagina:'cadastro_afiliado.ejs', regioes:regioes, err:err, code:code});
-})
-
+  gerarCodigo().then((result) => {
+    
+    code = result;
+    var err = req.query.err;
+    res.render('model', {titulo: "Cadastro", pagina: 'cadastro_afiliado.ejs', regioes: regioes, err: err, code: code});
+  }).catch((err) => {
+    console.error(err);
+    var mensagemErro = "Erro ao gerar código. Por favor, tente novamente.";
+    res.render('model', {titulo: "Cadastro", pagina: 'cadastro_afiliado.ejs', regioes: regioes, err: mensagemErro});
+  });
+});
 
 
 

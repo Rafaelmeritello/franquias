@@ -82,8 +82,9 @@ router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
 router.get('/cadastroafiliado',login_administrador_obrigatorio, function(req, res, next) {
   console.log(req.query.err)
   var err = req.query.err
-  console.log(databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{'codigo':'2723'}))
-  res.render('model', {titulo:"Cadastro", pagina:'cadastro_afiliado.ejs', regioes:regioes, err:err});
+  code = Math.floor(Math.random()*9000)+1000
+  
+  res.render('model', {titulo:"Cadastro", pagina:'cadastro_afiliado.ejs', regioes:regioes, err:err, code:code});
 })
 
 

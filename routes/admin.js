@@ -91,17 +91,17 @@ router.get('/cadastroafiliado',login_administrador_obrigatorio, function(req, re
 
 router.post('/cadastroafiliado',login_administrador_obrigatorio, function(req, res, next) {
   body = req.body
-  console.log(req.body)
-obrigatorio = ['nome_loja','nome_proprietario','palavra_passe', 'telefone', 'email','','cpf_cnpj','assistencia']
-for(item in obrigatorio){
-    campo = body[obrigatorio[item]]
-    if(campo == undefined){
-        res.redirect('/admin/cadastroafiliado?err=esta faltando campos para preencher')
-    }
+  
+//obrigatorio = ['nome_loja','nome_proprietario','palavra_passe', 'telefone', 'email','','cpf_cnpj','assistencia']
+//for(item in obrigatorio){
+//    campo = body[obrigatorio[item]]
+  //  if(campo == undefined){
+    //    res.redirect('/admin/cadastroafiliado?err=esta faltando campos para preencher')
+    //}
 
-}
+//}
 
-
+  databaseAdmin.InserirObjeto('afiliados',body)
   res.redirect('/admin/painel')
 })
 module.exports = router;

@@ -144,6 +144,9 @@ router.get('/cadastroafiliado',  function(req, res) {
   if(!req.session.administrador){
     res.send('acesso negado')
   }
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   gerarCodigo().then((result) => {
     
     code = result;
@@ -164,7 +167,7 @@ router.get('/cadastroafiliado',  function(req, res) {
 
 router.post('/cadastroafiliado',login_administrador_obrigatorio, async function(req, res, next) {
   body = req.body
-  
+
   err = false
   obrigatorio = ['nome_loja','nome_proprietario','palavra_passe', 'telefone', 'email','cpf_cnpj','assistencia','codigo']
 for(item in obrigatorio){

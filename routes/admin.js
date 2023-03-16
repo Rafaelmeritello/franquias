@@ -150,7 +150,7 @@ router.get('/cadastroafiliado', login_administrador_obrigatorio, function(req, r
   }).catch((err) => {
     console.error(err);
     var mensagemErro = "Erro ao gerar código. Por favor, tente novamente.";
-    res.render('model', {titulo: "Cadastro", pagina: 'cadastro_afiliado.ejs', regioes: regioes, err: mensagemErro});
+    res.render('model', {titulo: "Cadastro|Afiliados", pagina: 'cadastro_afiliado.ejs', regioes: regioes, err: mensagemErro});
   });
 });
 

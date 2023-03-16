@@ -80,7 +80,7 @@ router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
 
 //make a route for render model page including titulo and pagina variables
 router.get('/cadastroafiliado',login_administrador_obrigatorio, function(req, res, next) {
-  console.log(req.query.err)
+  
   var err = req.query.err
   code = Math.floor(Math.random()*9000)+1000
   

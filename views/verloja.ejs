@@ -19,12 +19,23 @@
             <span class="store-info__label">CPF/CNPJ:</span>
             <span class="store-info__value"><%= afiliado.cpf_cnpj %></span>
           </div>
+          
+          <div class="store-info__item">
+            <span class="store-info__label">Região:</span>
+            <span class="store-info__value"><%= afiliado.regiao %></span>
+          </div>
+          
           <div class="store-info__item">
             <span class="store-info__label">Assistência:</span>
             <span class="store-info__value"><%= afiliado.assistencia %></span>
           </div>
-          <button class="btn btn-primary">Editar</button>
-          <button class="btn btn-danger">Apagar</button>
+          <% if (locals.administrador) { %>
+            <button class="btn btn-primary">Editar</button>
+            <button class="btn btn-danger">Apagar</button>
+          <% } else { %>
+            <h5 style="color: red;">Para alterações de dados entre em contato</h4>
+          <% } %>
+          
         </div>
     
         
@@ -46,7 +57,7 @@
   border-radius: 10px;
   padding: 20px;
   text-align: center;
-  max-width: 400px;
+  max-width: 500px;
   width: 100%;
 }
 

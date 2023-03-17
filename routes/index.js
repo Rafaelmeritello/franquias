@@ -11,7 +11,7 @@ router.get('/dadosloja/:codigo',async function(req,res){
 
  afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
   if(afiliado){
-    
+    console.log(afiliado.regiao)
     res.render('model.ejs', {pagina:'verloja.ejs',titulo:afiliado.nome_loja, afiliado:afiliado})
 
 

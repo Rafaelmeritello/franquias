@@ -193,7 +193,7 @@ await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {codigo: body.cod
 if(err == false){
 
   databaseAdmin.InserirObjeto('afiliados',body)
-  res.redirect('/admin/painel')
+  res.redirect(`/dadosloja/${body.codigo}`)
 }
 })
 

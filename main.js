@@ -83,11 +83,11 @@ module.exports = {
 
 
 var adminRouter = require('./routes/admin');
-var usersRouter = require('./routes/users');
+var indexRouter = require('./routes/index');
 
 
 app.use('/admin', adminRouter);
-app.use('/teste', usersRouter);
+app.use('/', indexRouter);
 
 
 

@@ -198,6 +198,21 @@ if(err == false){
 })
 
 
+router.get('/editarloja/:codigo?',login_administrador_obrigatorio, async function(req,res){
+  afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
+  if(afiliado){
+    res.render('model',{titulo:'Editar', pagina:'editarloja.ejs', afiliado:afiliado, regioes:regioes})
+  }else{
+    res.send("nenhum afiliado encontrado")
+  }
+})
+
+
+
+router.post('/editarloja/:codigo', login_administrador_obrigatorio, async function(req,res){
+  await databaseAdmin.atualizarobjetos('afiliados',{codigo:req.params.codigo},req.body)
+  res.redirect(`/dadosloja/${req.params.codigo}`)
+} )
 
 
 module.exports = router;

@@ -37,7 +37,15 @@ class Sing{
     }
 
 
+   async atualizarobjetos(colecao, filtro,novo){
+    try{
 
+        await this.client.db(this.db_name).collection(colecao).updateOne(filtro,{$set:novo})
+
+    }catch(e){
+        console.log(e)
+    }
+   }    
 
     // Essa função lista os objetos de uma determinada coleção, com a possibilidade de filtrar os objetos retornados.
     async listaObjetos(colecao, filtro = {},requerido={}){

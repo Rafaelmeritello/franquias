@@ -30,8 +30,10 @@
             <span class="store-info__value"><%= afiliado.assistencia %></span>
           </div>
           <% if (locals.administrador) { %>
-            <button class="btn btn-primary">Editar</button>
-            <button class="btn btn-danger">Apagar</button>
+          <form action="/admin/editarloja/<%= afiliado.codigo %>" method="get">
+            <button class="btn btn-primary mt-2" type="submit">Editar</button>
+          </form>
+            <button class="btn btn-danger mt-2">Apagar</button>
           <% } else { %>
             <h5 style="color: red;">Para alterações de dados entre em contato</h4>
           <% } %>

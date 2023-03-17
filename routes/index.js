@@ -7,11 +7,12 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/dadosloja/:codigo',async function(req,res){
-
- afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
+router.get('/dadosloja/:codigo?',async function(req,res){
+  console.log(req.query.codigo)
+ codigo = req.params.codigo || req.query.codigo  
+ afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:codigo})
   if(afiliado){
-    console.log(afiliado.regiao)
+    
     res.render('model.ejs', {pagina:'verloja.ejs',titulo:afiliado.nome_loja, afiliado:afiliado})
 
 

@@ -95,6 +95,10 @@ router.post('/login', function(req,res){
   })
 
 
+router.get('/painelbusca',login_administrador_obrigatorio,function(req,res){
+  res.render('model', {titulo:"Busca", pagina:'painelbusca.ejs'})
+})
+
 
 
 
@@ -127,7 +131,7 @@ router.post('/codigoexistente', function(req, res, next) {
       res.send(false);
     }
   }).catch((err) => {
-    console.error(err);
+    c
     res.send(false);
   });
 });
@@ -173,7 +177,7 @@ router.post('/cadastroafiliado',login_administrador_obrigatorio, async function(
 for(item in obrigatorio){
    campo = body[obrigatorio[item]]
    if(campo == undefined){
-       console.log(campo)
+       
        err = true;
        res.redirect('/admin/cadastroafiliado?err=esta faltando campos para preencher')
 

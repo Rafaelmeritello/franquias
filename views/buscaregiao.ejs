@@ -1,0 +1,81 @@
+<h1 class='text-center mt-2'>Administrador: <%= locals.administrador%></h1>
+<h6 class='text-center m-1 '>Região: <%= regiao%></h6>
+
+<div class="d-flex flex-column justify-content-center align-items-center mt-1 p-5">
+<center>
+    <div class="container ">
+
+
+        <% if (afiliados.lenght != 0){ %> 
+            
+        <% for(let i = 0; i < afiliados.length; i++){ %>
+            
+
+       
+        <div class="row">
+            <div class="col-12 m-2" style=" max-width: 950px;  border: 2px solid #000; border-radius: 5px;">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <a class="store-info__label" style="font-size: 21px;" href="/dadosafiliado/<%= afiliados[i].codigo %>"><%= afiliados[i].nome_loja %></a>
+                            
+                        </div>
+
+                        <div class="col-12 mt-1 col-md-12">
+                            <span class="store-info__label ">Nome Do proprietario:</span>
+                            <span class="store-info__value"><%= afiliados[i].nome_proprietario %></span>
+                        </div>
+
+                        <div class="col-12 mt-2 col-md-12">
+                            <span class="store-info__label ">Código:</span>
+                            <span class="store-info__value"><%= afiliados[i].codigo %></span>
+                        </div>
+
+                    </div>
+                </div>
+       
+
+
+            </div>
+        </div>
+         
+        <% } %>
+
+ 
+         <% } %>
+         <% if(afiliados.length == 0) {%>
+            <div class="row">
+                <div class="col-12 m-2" style="  border: 2px solid #000; border-radius: 5px;">
+                    <span>Vazio</span>
+           
+    
+    
+                </div>
+            </div>
+        <% } %>
+
+    </div>
+
+</div>
+</center>
+<style>
+
+.store-info {
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.store-info__item {
+  margin-bottom: 10px;
+}
+
+.store-info__label {
+  font-weight: bold;
+}
+
+
+  </style>

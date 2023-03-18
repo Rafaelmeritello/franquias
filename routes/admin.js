@@ -44,7 +44,7 @@ function login_administrador_obrigatorio(req,res,next){
 
 
 
-
+// login admin
 router.get('/login/:numero?', function(req, res, next) {
   
   delete req.session.administrador
@@ -62,6 +62,7 @@ router.get('/login/:numero?', function(req, res, next) {
   
   
 });
+
 
 
 
@@ -95,9 +96,8 @@ router.post('/login', function(req,res){
   })
 
 
-router.get('/painelbusca',login_administrador_obrigatorio,function(req,res){
-  res.render('model', {titulo:"Busca", pagina:'painelbusca.ejs'})
-})
+
+// fim login admin
 
 
 
@@ -107,20 +107,31 @@ router.get('/painelbusca',login_administrador_obrigatorio,function(req,res){
 
 
 
+// paineis
 
 router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
   var msg = req.query.msg;
   res.render('model', {titulo:"Painel de controle", pagina:'painel.ejs'});
 })
 
+  
+router.get('/painelbusca',function(req,res){
+  if(!req.session.administrador){
+    res.send('acesso negado')
+  }
+  res.render('model', {titulo:"Busca", pagina:'painelbusca.ejs', regioes:regioes})
+})
+
+
+
+// fim paineis
 
 
 
 
 
 
-
-
+// ajax
 
 router.post('/codigoexistente', function(req, res, next) {
   var codigo = req.body.codigo;
@@ -136,11 +147,14 @@ router.post('/codigoexistente', function(req, res, next) {
   });
 });
 
+// fim ajax
 
 
 
 
 
+
+// afiliados
 
 
 
@@ -202,6 +216,21 @@ if(err == false){
 })
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/editarafiliado/:codigo?',login_administrador_obrigatorio, async function(req,res){
   afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
   if(afiliado){
@@ -221,6 +250,18 @@ router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async fu
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 router.get('/apagarafiliado/:codigo', login_administrador_obrigatorio, async function(req,res){
 
     await databaseAdmin.excluir_objeto_multiplos('afiliados',{codigo:req.params.codigo})
@@ -228,6 +269,31 @@ router.get('/apagarafiliado/:codigo', login_administrador_obrigatorio, async fun
     res.redirect('/admin/painel')
 
 })
+
+
+
+
+
+router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async function(req,res){
+  regiao = req.query.regiao
+  
+  console.log(regiao)
+  afiliados = []
+  if(regiao == 'todas'){
+    afiliados = await databaseAdmin.listaObjetos('afiliados', {})
+
+  }else{
+    afiliados = await databaseAdmin.listaObjetos('afiliados', {regiao:regiao})
+  }
+
+
+  res.render('model',{titulo:'Listagem', pagina:'buscaregiao.ejs', regioes:regioes, afiliados:afiliados, regiao:regiao})
+
+})
+
+
+
+// afilados - fim
 
 module.exports = router;
 

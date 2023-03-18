@@ -1,4 +1,4 @@
-<div class="d-flex flex-column justify-content-center align-items-center">
+<div class="d-flex flex-column ">
     
     <div class="container">
         <div class="store-info">
@@ -55,8 +55,20 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  margin-top: 5rem;
+  max-height: 30vh;
 }
+
+
+@media (min-width: 700px), handheld and (orientation: landscape) { 
+  .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10rem;
+  max-height: 20vh;
+}
+ }
 
 .store-info {
   border: 2px solid #000;

@@ -10,34 +10,34 @@
 
         <div class="form-group mt-2">
             <label for="nome_loja">Nome da loja</label>
-            <input type="text" class="form-control" id="nome_loja" name="nome_loja" placeholder="Nome da loja">
+            <input required type="text" class="form-control" id="nome_loja" name="nome_loja" placeholder="Nome da loja">
         </div>
 
 
 
         <div class="form-group mt-2">
             <label for="nome_proprietario">Nome do proprietario</label>
-            <input type="text" class="form-control" id="nome_proprietario" name="nome_proprietario" placeholder="Nome do proprietario">
+            <input required type="text" class="form-control" id="nome_proprietario" name="nome_proprietario" placeholder="Nome do proprietario">
         </div>
 
 
 
         <div class="form-group mt-2">
             <label for="palavra_passe">Palavra passe</label>
-            <input type="text" class="form-control" id="palavra_passe" name="palavra_passe" placeholder="Palavra passe">
+            <input required type="text" class="form-control" id="palavra_passe" name="palavra_passe" placeholder="Palavra passe">
         </div>
 
 
 
         <div class="form-group mt-2">
             <label for="telefone">Telefone(ddd)</label>
-            <input type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone">
+            <input required type="text" class="form-control" id="telefone" name="telefone" placeholder="Telefone">
         </div>
 
 
         <div class="form-group mt-2">
             <label for="email">email</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="Palavra passe">
+            <input required type="email" class="form-control" id="email" name="email" placeholder="Palavra passe">
         </div>
 
         <div class="form-group mt-2">
@@ -54,13 +54,13 @@
 
         <div class='form-group mt-2'>
         <label for='codigo'>Código</label>    
-        <input name='codigo' id='codigo' type="text" value="<%= code %>">
+        <input name='codigo' id='codigo' type="number" value="<%= code %>">
         </div>
         
 
         <div class="form-group mt-2">
             <label for="cpf_cnpj">CNPJ/CPF</label>
-            <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="CNPJ">
+            <input type="text" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="CNPJ" required>
         </div>
 
         <div class="form-group mt-2">
@@ -86,6 +86,7 @@
 
     err = '<%= err %>'
     if(err != ''){
+    
         alert(err)
         window.location.href = '/admin/cadastroafiliado'
     
@@ -95,29 +96,11 @@
 
 
     $('#form').submit(function(e){
-    
+    e.preventdefault()
     var erro = false
     var form = $(this);
     obrigatorio = ['nome_loja', 'nome_proprietario', 'palavra_passe', 'telefone', 'email', 'cpf_cnpj', 'assistencia', 'codigo'];
-    for (let i = 0; i < obrigatorio.length; i++) {
-        if ($('#'+obrigatorio[i]).val() == '') {
-            erro = true
-            alert('Preencha todos os campos');
-            return;
-        }
-    }
 
-
-
-
-    if(erro == true){
-        e.preventDefault();
-        
-    }else{
-        form.submit();
-    }
-
-});
 
 
 

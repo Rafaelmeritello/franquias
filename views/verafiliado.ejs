@@ -30,10 +30,14 @@
             <span class="store-info__value"><%= afiliado.assistencia %></span>
           </div>
           <% if (locals.administrador) { %>
-          <form action="/admin/editarloja/<%= afiliado.codigo %>" method="get">
+          <form action="/admin/editarafiliado/<%= afiliado.codigo %>" method="get">
             <button class="btn btn-primary mt-2" type="submit">Editar</button>
           </form>
-            <button class="btn btn-danger mt-2">Apagar</button>
+
+      
+              <button class="btn btn-danger mt-2" onclick="apagar()">Apagar</button>
+
+
           <% } else { %>
             <h5 style="color: red;">Para alterações de dados entre em contato</h4>
           <% } %>
@@ -73,3 +77,14 @@
 
 
   </style>
+  <script>
+
+    function apagar(){
+      code = '<%= afiliado.codigo %>'
+      if (confirm("Esta ação removera a loja <%= afiliado.nome_loja %> para sempre. aperte 'ok' para confirmar")) {
+      window.location.href = '/admin/apagarafiliado/<%= afiliado.codigo %>'
+} else {
+  alert('Operação cancelada')
+}
+    }
+  </script>

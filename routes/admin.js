@@ -197,15 +197,15 @@ await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {codigo: body.cod
 if(err == false){
 
   databaseAdmin.InserirObjeto('afiliados',body)
-  res.redirect(`/dadosloja/${body.codigo}`)
+  res.redirect(`/dadosafiliado/${body.codigo}`)
 }
 })
 
 
-router.get('/editarloja/:codigo?',login_administrador_obrigatorio, async function(req,res){
+router.get('/editarafiliado/:codigo?',login_administrador_obrigatorio, async function(req,res){
   afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
   if(afiliado){
-    res.render('model',{titulo:'Editar', pagina:'editarloja.ejs', afiliado:afiliado, regioes:regioes})
+    res.render('model',{titulo:'Editar', pagina:'editarafiliado.ejs', afiliado:afiliado, regioes:regioes})
   }else{
     res.send("nenhum afiliado encontrado")
   }
@@ -213,11 +213,21 @@ router.get('/editarloja/:codigo?',login_administrador_obrigatorio, async functio
 
 
 
-router.post('/editarloja/:codigo', login_administrador_obrigatorio, async function(req,res){
+router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async function(req,res){
   await databaseAdmin.atualizarobjetos('afiliados',{codigo:req.params.codigo},req.body)
-  res.redirect(`/dadosloja/${req.params.codigo}`)
+  res.redirect(`/dadosafiliado/${req.params.codigo}`)
 } )
 
+
+
+
+router.get('/apagarafiliado/:codigo', login_administrador_obrigatorio, async function(req,res){
+
+    await databaseAdmin.excluir_objeto_multiplos('afiliados',{codigo:req.params.codigo})
+
+    res.redirect('/admin/painel')
+
+})
 
 module.exports = router;
 

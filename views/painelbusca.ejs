@@ -3,7 +3,7 @@
 <div class="d-flex flex-column justify-content-center align-items-center mt-5">
 
 
-<form action="/dadosloja" method="get">
+<form action="/dadosafiliado" method="get">
 
 <form>
 <div class="form-group ">
@@ -25,3 +25,23 @@
 
 }
 </style>
+
+<script>
+        $('#codigo').blur(function(){
+        var codigo = $(this).val()
+        $.ajax({
+            url: '/admin/codigoexistente',
+            type: 'post',
+            data: {codigo: codigo},
+            success: function(data){
+                if(data == false){
+
+                    alert('Código não existe')
+
+                    $('#codigo').val('')
+                }
+            }
+      })  
+
+    })
+</script>

@@ -77,10 +77,10 @@ class Sing{
 
 
     //Essa função exclui um objeto único de uma determinada coleção, com base no id.
-    async excluir_objeto_Unico(colecao,id){
+    async excluir_objeto_Unico(colecao,filtro){
         try{
           
-            await this.db.collection(colecao).deleteOne({_id:ObjectId(id)});
+            await this.db.collection(colecao).deleteOne(filtro);
         }catch(e){
             throw Error(`Erro ao excluir objeto na coleção ${colecao},filtro ${filtro} e Erro ${e}`)
         } 
@@ -94,6 +94,7 @@ class Sing{
         try{
             
             await this.db.collection(colecao).deleteMany(filtro);
+            console.log('deletado')
         }catch(e){
             throw Error(`Erro ao excluir objeto na coleção ${colecao},filtro ${filtro} e Erro ${e}`)
         } 

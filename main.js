@@ -41,7 +41,7 @@ app.use('/js',express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 
 app.use(function(req, res, next) {
-  res.locals.administrador = req.session.administrador || '';
+  res.locals.administrador = req.session.administrador ;
   next();
 });
 

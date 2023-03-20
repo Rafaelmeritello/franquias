@@ -34,7 +34,7 @@ function login_administrador_obrigatorio(req,res,next){
   if(req.session.administrador){
     next()
   }else{
-    res.redirect('/admin/login')
+    res.send("acesso negado")
   }
 }
 // - fim - funções  - fim - //
@@ -304,6 +304,20 @@ router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async fu
 
 
 // afilados - fim
+
+
+
+//produtos
+
+router.get("/incluirproduto/:codigoloja",login_administrador_obrigatorio, async function(req,res){
+  loja = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigoloja})
+  if (!loja){
+    res.send("nenhuma loja com esse codigo foi encontrada")
+  }
+  res.render('model',{titulo:'Incluir produto', pagina:'produtos/incluirproduto.ejs'})
+})
+
+// produtos fim
 
 module.exports = router;
 

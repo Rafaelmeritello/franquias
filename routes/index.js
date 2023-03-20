@@ -47,7 +47,7 @@ router.get("/informadevolucao/:id/:quantidade",async function(req,res){
     res.send("nenhum produto com esse codigo foi encontrado")
   }
   quantidade = req.params.quantidade
-    if(produto.estoque > 0){
+    if(produto.estoque - quantidade >= 0){
       produto.estoque = produto.estoque - quantidade
     }
     

@@ -1,1 +1,55 @@
-<h2 class="text-white"><%= locals.administrador %></h2>
+
+<h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1>
+<div class="d-flex justify-content-center align-items-center">
+
+
+<div class="container text-white  mt-2 p-4" style="background-color:#6676e0; border-radius: 6px; max-width: 700px;">
+    <form action="/admin/incluirproduto/<%=codigoloja%>" id="form" method="post">
+
+<center>
+
+        <div class="form-group mt-2">
+            <label for="nome">Nome do produto</label>
+            <input required type="text" class="form-control" id="nome" name="nome" placeholder="Nome do produto">
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="estoque">Estoque atual</label>
+            <input required type="number" class="form-control" id="estoque" name="estoque" placeholder="Estoque">
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="valor">Valor</label>
+            <input type="number" id="valor" name="valor" min="0" step="0.01" required>
+        </div>
+
+
+
+
+</center>
+       <center><button type="submit" id="enviar" class="btn btn-success mt-5">CADASTRAR</button></center> 
+        
+    </form>
+
+</div>
+
+</div>
+<script>
+
+    msg = '<%= msg %>'
+    if(msg != ''){
+    
+        alert(msg)
+        window.location.href = '/admin/incluirproduto/<%=codigoloja%>'
+    
+    }
+
+
+    $("#form").submit(function(){
+        $('#enviar').prop('disabled',true)
+    })
+
+  
+    
+
+</script>

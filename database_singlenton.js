@@ -37,10 +37,20 @@ class Sing{
     }
 
 
-   async atualizarobjetos(colecao, filtro,novo){
+   async atualizarobjeto(colecao, filtro,novo){
     try{
 
         await this.client.db(this.db_name).collection(colecao).updateOne(filtro,{$set:novo})
+
+    }catch(e){
+        console.log(e)
+    }
+   }    
+
+   async atualizarobjeto_por_id(colecao, id,novo){
+    try{
+
+        await this.client.db(this.db_name).collection(colecao).updateOne({_id:ObjectId(id)},{$set:novo})
 
     }catch(e){
         console.log(e)
@@ -76,7 +86,7 @@ class Sing{
 
 
 
-    //Essa função exclui um objeto único de uma determinada coleção, com base no id.
+    //Essa função exclui um objeto único de uma determinada coleção.
     async excluir_objeto_Unico(colecao,filtro){
         try{
           
@@ -86,6 +96,16 @@ class Sing{
         } 
     }
 
+
+    //Essa função exclui um objeto único de uma determinada coleção, com base no id
+    async excluir_objeto_Unico_por_id(colecao,id){
+        try{
+          
+            await this.db.collection(colecao).deleteOne({_id:ObjectId(id)});
+        }catch(e){
+            throw Error(`Erro ao excluir objeto na coleção ${colecao},filtro ${filtro} e Erro ${e}`)
+        } 
+    }
 
 
 

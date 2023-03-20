@@ -271,7 +271,7 @@ router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async fu
   }
   console.log(req.body)
   
-  await databaseAdmin.atualizarobjetos('afiliados',{codigo:req.params.codigo},req.body)
+  await databaseAdmin.atualizarobjeto('afiliados',{codigo:req.params.codigo},req.body)
   res.redirect(`/dadosafiliado/${req.params.codigo}`)
 } )
 
@@ -326,12 +326,108 @@ router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async fu
 //produtos
 
 router.get("/incluirproduto/:codigoloja",login_administrador_obrigatorio, async function(req,res){
+  msg = req.query.msg
   loja = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigoloja})
   if (!loja){
     res.send("nenhuma loja com esse codigo foi encontrada")
   }
-  res.render('model',{titulo:'Incluir produto', pagina:'produtos/incluirproduto.ejs'})
+
+  res.render('model',{titulo:'Incluir produto', pagina:'produtos/incluirproduto.ejs',codigoloja:req.params.codigoloja, msg:msg})
 })
+
+
+
+router.post("/incluirproduto/:codigoloja",login_administrador_obrigatorio, async function(req,res){
+  loja = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigoloja})
+  if (!loja){
+    res.send("nenhuma loja com esse codigo foi encontrada")
+  }
+  
+  obrigatorio = ['nome','valor','estoque']
+  err = false
+  for(item in obrigatorio){
+    campo = req.body[obrigatorio[item]]
+    if(campo == undefined){
+      err = true;
+      res.redirect(`/admin/incluirproduto/${req.params.codigoloja}?msg=esta faltando campos para preencher`)
+    }
+  }
+  if(err == false){
+    req.body.codigo_loja = req.params.codigoloja
+    req.body.nome_loja = loja.nome_loja;
+    req.body.telefone_loja = loja.telefone; 
+    req.body.proprietario_loja = loja.nome_proprietario;
+    req.body.vendidos = '0';
+    req.body.devolucoes = '0';
+    databaseAdmin.InserirObjeto('produtos',req.body)
+  }
+  res.redirect(`/admin/incluirproduto/${req.params.codigoloja}?msg=produto cadastrado com sucesso`)
+})
+
+
+
+
+
+
+
+
+
+
+router.get("/editarproduto/:id",login_administrador_obrigatorio, async function(req,res){
+  msg = req.query.msg
+  produto = await databaseAdmin.buscarobjeto_por_id('produtos',req.params.id)
+  if (!produto){
+    res.send("nenhum produto com esse codigo foi encontrado")
+  }
+
+
+  res.render('model',{titulo:'Editar produto', pagina:'produtos/editarproduto.ejs',produto:produto, msg:msg})
+})
+
+
+router.post("/editarproduto/:id",login_administrador_obrigatorio, async function(req,res){
+  produto = await databaseAdmin.buscarobjeto_por_id('produtos',req.params.id)
+  if (!produto){
+    res.send("nenhum produto com esse codigo foi encontrado")
+  }
+  obrigatorio = ['nome','valor','estoque', 'vendidos','devolucoes']
+  err = false
+  for(item in obrigatorio){
+    campo = req.body[obrigatorio[item]]
+    if(campo == undefined){
+      err = true;
+      res.redirect(`/admin/editarproduto/${req.params.id}?msg=esta faltando campos para preencher`)
+    }
+  }
+  if(err == false){
+    databaseAdmin.atualizarobjeto_por_id('produtos',req.params.id,req.body)
+    res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=produto editado com sucesso`)
+  }
+  })
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  router.get("/apagarproduto/:id",login_administrador_obrigatorio, async function(req,res){
+    produto = await databaseAdmin.buscarobjeto_por_id('produtos',req.params.id)
+    if (!produto){
+      res.send("nenhum produto com esse codigo foi encontrado")
+    }
+    await databaseAdmin.excluir_objeto_Unico_por_id('produtos',req.params.id)
+    res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=produto excluido com sucesso`)
+  })
+
+
+
 
 // produtos fim
 

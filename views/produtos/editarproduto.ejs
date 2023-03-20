@@ -1,0 +1,79 @@
+
+<h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1>
+<div class="d-flex justify-content-center align-items-center">
+
+
+<div class="container text-white  mt-2 p-4" style="background-color:#6676e0; border-radius: 6px; max-width: 700px;">
+    <form action="/admin/editarproduto/<%= produto._id %>" id="form" method="post">
+
+<center>
+
+        <div class="form-group mt-2">
+            <label for="nome">Nome do produto</label>
+            <input required type="text" value="<%= produto.nome %>" class="form-control" id="nome" name="nome" placeholder="Nome do produto">
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="estoque">Estoque atual</label>
+            <input required type="number" value="<%= produto.estoque %>" class="form-control" id="estoque" name="estoque" placeholder="Estoque">
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="vendidos">vendidos</label>
+            <input required type="number" value="<%=produto.vendidos%>" class="form-control" id="vendidos" name="vendidos" placeholder="Vendidos">
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="estoque">Devoluções</label>
+            <input required type="number" value="<%=produto.devolucoes%>" class="form-control" id="devolucoes" name="devolucoes" placeholder="Devoluções">
+        </div>
+
+
+        <div class="form-group mt-2">
+            <label for="valor">Valor</label>
+            <input type="number" value="<%=produto.valor%>" id="valor" name="valor" min="0" step="0.01" required>
+        </div>
+
+
+
+
+</center>
+       <center><button type="submit" id="enviar" class="btn btn-success mt-5">CADASTRAR</button></center> 
+       <center>
+
+
+    
+    </center>
+    </form>
+
+        <center><button onclick="apagar()" type="submit" id="enviar" class="btn btn-danger mt-4">Apagar</button></center>
+    
+</div>
+
+</div>
+<script>
+
+    msg = '<%= msg %>'
+    if(msg != ''){
+    
+        alert(msg)
+        window.location.href = '/admin/editarproduto/<%= produto.__id %>'
+    
+    }
+
+
+    $("#form").submit(function(){
+        $('#enviar').prop('disabled',true)
+    })
+
+    function apagar(){
+      code = '<%= afiliado.codigo %>'
+      if (confirm("Esta ação removera o produto <%= produto.nome %> para sempre. aperte 'ok' para confirmar")) {
+      window.location.href = '/admin/apagarproduto/<%= produto._id %>'
+} else {
+  alert('Operação cancelada')
+}
+    }
+    
+
+</script>

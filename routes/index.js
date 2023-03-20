@@ -8,12 +8,12 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/dadosafiliado/:codigo?',async function(req,res){
-  console.log(req.query.codigo)
+
  codigo = req.params.codigo || req.query.codigo  
  afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:codigo})
   if(afiliado){
     
-    res.render('model.ejs', {pagina:'verafiliado.ejs',titulo:afiliado.nome_loja, afiliado:afiliado})
+    res.render('model.ejs', {pagina:'afiliados/verafiliado.ejs',titulo:afiliado.nome_loja, afiliado:afiliado})
 
 
   }else{

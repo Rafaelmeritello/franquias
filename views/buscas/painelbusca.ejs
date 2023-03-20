@@ -1,4 +1,4 @@
-<h1 class='text-center mt-2'>Administrador: <%= locals.administrador%></h1>
+<h1 class='text-center mt-2 text-white' >Administrador: <%= locals.administrador%></h1>
 
 <div class="d-flex flex-column justify-content-center align-items-center mt-5">
 
@@ -8,10 +8,10 @@
 <form>
 <div class="form-group ">
 <center>
-<label for='codigo'>Código</label>
-<input type="number" name='codigo' id='codigo'></center>
+<label for='codigo' class="text-white">Código:</label>
+<input type="number" class="form-control" style="max-width: 200px;" name='codigo' id='codigo'></center>
 </div>
-<button class="btn btn-primary botao" type="submit">Buscar</button>
+<button class="btn btn-primary botao" style="max-width: 300px;" type="submit">Buscar</button>
 </form>
 
 
@@ -21,11 +21,11 @@
   
    
         <div class="form-group mt-2">
-            <label for="regiao">Região</label>
-            <select class="form-control" name="regiao" id="regiao">
-                <option value="todas">Todas</option>
+            <label for="regiao text-white"    class="text-white">Região</label>
+            <select class="form-control" style="max-width: 320px;"   name="regiao" id="regiao">
+                <option value="todas" class="text-center" >Todas</option>
                 <% for (let i = 0; i < regioes.length; i++) { %>
-                  <option value="<%= regioes[i] %>"><%= regioes[i] %></option>
+                  <option value="<%= regioes[i] %>" class="text-center"><%= regioes[i] %></option>
                 <% } %>
             </select>
 
@@ -35,7 +35,7 @@
 
 
     </div>
-    <button class="btn btn-primary botao" type="submit">Buscar por região</button>
+    <button class="btn btn-primary botao" style="max-width: 300px;" type="submit">Buscar por região</button>
 </form>
     
 

@@ -111,7 +111,7 @@ router.post('/login', function(req,res){
 
 router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
   var msg = req.query.msg;
-  res.render('model', {titulo:"Painel de controle", pagina:'painel.ejs'});
+  res.render('model', {titulo:"Painel de controle", pagina:'adminpainel.ejs'});
 })
 
   
@@ -119,7 +119,7 @@ router.get('/painelbusca',function(req,res){
   if(!req.session.administrador){
     res.send('acesso negado')
   }
-  res.render('model', {titulo:"Busca", pagina:'painelbusca.ejs', regioes:regioes})
+  res.render('model', {titulo:"Busca", pagina:'buscas/painelbusca.ejs', regioes:regioes})
 })
 
 
@@ -169,11 +169,11 @@ router.get('/cadastroafiliado',  function(req, res) {
     
     code = result;
     var err = req.query.err;
-    res.render('model', {titulo: "Cadastro", pagina: 'cadastro_afiliado.ejs', regioes: regioes, err: err, code: code});
+    res.render('model', {titulo: "Cadastro", pagina: 'afiliados/cadastro_afiliado.ejs', regioes: regioes, err: err, code: code});
   }).catch((err) => {
-    console.error(err);
+
     var mensagemErro = "Erro ao gerar código. Por favor, tente novamente.";
-    res.render('model', {titulo: "Cadastro|Afiliados", pagina: 'cadastro_afiliado.ejs', regioes: regioes, err: mensagemErro});
+    res.render('model', {titulo: "Cadastro|Afiliados", pagina: 'afiliados/cadastro_afiliado.ejs', regioes: regioes, err: mensagemErro});
   });
 });
 
@@ -198,6 +198,8 @@ for(item in obrigatorio){
     }
 
 }
+const hash = await bcrypt.hash(req.body.palavra_passe, 10)
+req.body.palavra_passe = hash
 
 await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {codigo: body.codigo}).then((result) => {
   if(result) {
@@ -234,7 +236,7 @@ if(err == false){
 router.get('/editarafiliado/:codigo?',login_administrador_obrigatorio, async function(req,res){
   afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
   if(afiliado){
-    res.render('model',{titulo:'Editar', pagina:'editarafiliado.ejs', afiliado:afiliado, regioes:regioes})
+    res.render('model',{titulo:'Editar', pagina:'afiliados/editarafiliado.ejs', afiliado:afiliado, regioes:regioes})
   }else{
     res.send("nenhum afiliado encontrado")
   }
@@ -242,12 +244,20 @@ router.get('/editarafiliado/:codigo?',login_administrador_obrigatorio, async fun
 
 
 
+
 router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async function(req,res){
+
+  if(req.body.palavra_passe == ''){
+    delete req.body.palavra_passe
+  }else{
+    const hash = await bcrypt.hash(req.body.palavra_passe, 10)
+    req.body.palavra_passe = hash
+  }
+  console.log(req.body)
+  
   await databaseAdmin.atualizarobjetos('afiliados',{codigo:req.params.codigo},req.body)
   res.redirect(`/dadosafiliado/${req.params.codigo}`)
 } )
-
-
 
 
 
@@ -277,7 +287,7 @@ router.get('/apagarafiliado/:codigo', login_administrador_obrigatorio, async fun
 router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async function(req,res){
   regiao = req.query.regiao
   
-  console.log(regiao)
+
   afiliados = []
   if(regiao == 'todas'){
     afiliados = await databaseAdmin.listaObjetos('afiliados', {})
@@ -287,7 +297,7 @@ router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async fu
   }
 
 
-  res.render('model',{titulo:'Listagem', pagina:'buscaregiao.ejs', regioes:regioes, afiliados:afiliados, regiao:regiao})
+  res.render('model',{titulo:'Listagem', pagina:'buscas/buscaregiao.ejs', regioes:regioes, afiliados:afiliados, regiao:regiao})
 
 })
 

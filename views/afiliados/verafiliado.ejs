@@ -1,0 +1,224 @@
+<div class="d-flex flex-column ">
+    <!-- loja inicio -->
+    <div class="container container-plus">
+
+
+
+
+
+
+
+        <div class="store-info">
+            <h1> Código:<%= afiliado.codigo %></h1>
+          <div class="store-info__item">
+            <span class="store-info__label">Nome da loja:</span>
+            <span class="store-info__value"><%= afiliado.nome_loja %></span>
+          </div>
+          <div class="store-info__item">
+            <span class="store-info__label">Nome do proprietário:</span>
+            <span class="store-info__value">   <%= afiliado.nome_proprietario %>        </span>
+          </div>
+          <div class="store-info__item">
+            <span class="store-info__label">Telefone:</span>
+            <span class="store-info__value"><%= afiliado.telefone %></span>
+          </div>
+          <div class="store-info__item">
+            <span class="store-info__label">CPF/CNPJ:</span>
+            <span class="store-info__value"><%= afiliado.cpf_cnpj %></span>
+          </div>
+          
+          <div class="store-info__item">
+            <span class="store-info__label">Região:</span>
+            <span class="store-info__value"><%= afiliado.regiao %></span>
+          </div>
+          
+          <div class="store-info__item">
+            <span class="store-info__label">Assistência:</span>
+            <span class="store-info__value"><%= afiliado.assistencia %></span>
+          </div>
+          <% if (locals.administrador) { %>
+          <form action="/admin/editarafiliado/<%= afiliado.codigo %>" method="get">
+            <button class="btn btn-primary mt-2" type="submit">Editar</button>
+          </form>
+
+      
+              <button class="btn btn-danger mt-2" onclick="apagar()">Apagar</button>
+
+
+          <% } else { %>
+            <h5 style="color: orange;">Para alterações de dados entre em contato</h5>
+          <% } %>
+          
+
+
+
+
+
+
+        </div>
+          
+    </div>
+
+    
+    <!-- loja fim  -->
+
+
+
+    <div class="container alerta-box" style="  display: flex; justify-content: center; align-items: center;">
+      <div class="row">
+        <div class="col-12">
+          <h5 style="color: red;font-weight: bold;">Aviso</h5>
+          <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam sint odio iure voluptatibus vel consequuntur et quos quas quod aspernatur. Aut officia quod nisi natus illum facere nemo non quaerat?</span>
+        </div>
+      </div>
+      <!-- <span>Sem avisos por Hoje</span> -->
+ 
+      </div>
+
+
+
+
+    <!-- botao incluir -->
+    <hr style="width:100%;text-align:left; margin-top:1em; color: white;">
+ <div class="container " style=" margin-top: 0em; display: flex; justify-content: center; align-items: center;">
+
+ <div class="row">
+  <button class="btn btn-success mb-3">Incluir Produto</button>
+ </div>
+
+ </div>
+<!-- botao incluir fim -->
+
+
+<!-- Produtos -->
+    <div class="container mb-2" style="  display: flex; justify-content: center; align-items: center;">
+       <div class="produto-info">
+        <h5 style="  font-weight: bold;">Monitor</h5>
+        <div class="row">
+
+          <div class="col-4">
+            <span>Vendidos </br> 0</span>
+          </div>
+          <div class="col-4">
+            <span style="  font-weight: bold;">Total </br> 0</span>
+          </div>
+
+          <div class="col-4">
+            <span >Devoluções </br> 0</span>
+          </div>
+
+
+        </div>
+
+        <div class="row p-3">
+    
+            <button style="  font-weight: bold;" class="btn btn-success text-dark">Informar venda</button>
+
+        </div>
+        <div class="row p-3">
+          <button style="  font-weight: bold;" class="btn btn-info">Informar devolução</button>
+      </div>
+       </div>
+    </div>
+
+
+    <!-- produtos fim -->
+
+    </div>
+
+
+  <style>
+    .container-plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5rem;
+
+  max-height: 30vh;
+}
+
+.alerta-box{
+    margin-top: 5em;
+  }
+
+
+
+
+
+  .alerta-box{
+    margin-top: 4em;
+  }
+
+
+
+@media only screen and (min-width: 700px) { 
+  .alerta-box{
+    margin-top: 8em;
+  }
+  .container-plus {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 8.4rem;
+  color: white;
+  max-height: 20vh;
+}
+ }
+
+
+ .produto-info{
+  border: 2px solid  wheat;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  max-width: 400px;
+  width: 100%;
+  color: white;
+ }
+
+ .alerta-box{
+  border: 2px solid  red;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  max-width: 320px;
+  width: 100%;
+
+  color: white;
+ }
+
+
+.store-info {
+  border: 2px solid  white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  min-height: 20.2rem;
+  color: white;
+}
+
+.store-info__item {
+  margin-bottom: 8px;
+  color: white;
+}
+
+.store-info__label {
+  font-weight: bold;
+  color: white;
+}
+
+
+  </style>
+  <script>
+
+    function apagar(){
+      code = '<%= afiliado.codigo %>'
+      if (confirm("Esta ação removera a loja <%= afiliado.nome_loja %> para sempre. aperte 'ok' para confirmar")) {
+      window.location.href = '/admin/apagarafiliado/<%= afiliado.codigo %>'
+} else {
+  alert('Operação cancelada')
+}
+    }
+  </script>

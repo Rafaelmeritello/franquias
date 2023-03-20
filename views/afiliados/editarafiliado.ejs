@@ -1,43 +1,43 @@
 
-<h1 class='text-center mt-2'>Administrador: <%= locals.administrador%></h1>
+<h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1>
 <div class="d-flex justify-content-center align-items-center">
 
 
-<div class="container  mt-2 p-4" style="background-color: #6676e0; border-radius: 15px;">
+<div class="container  mt-2 p-4" style="background-color: #6676e0; border-radius: 15px; max-width: 700px;">
     <form action="/admin/editarafiliado/<%= afiliado.codigo %>" id="form" method="post">
 
 
 
         <div class="form-group mt-2">
             <label for="nome_loja">Nome da loja</label>
-            <input type="text" class="form-control" id="nome_loja" name="nome_loja" value="<%= afiliado.nome_loja %>" placeholder="Nome da loja">
+            <input required type="text" class="form-control" id="nome_loja" name="nome_loja" value="<%= afiliado.nome_loja %>" placeholder="Nome da loja">
         </div>
 
 
 
         <div class="form-group mt-2">
             <label for="nome_proprietario">Nome do proprietario</label>
-            <input type="text" class="form-control" id="nome_proprietario" value="<%= afiliado.nome_proprietario %>" name="nome_proprietario" placeholder="Nome do proprietario">
+            <input  required type="text" class="form-control" id="nome_proprietario" value="<%= afiliado.nome_proprietario %>" name="nome_proprietario" placeholder="Nome do proprietario">
         </div>
 
 
 
         <div class="form-group mt-2">
             <label for="palavra_passe">Palavra passe</label>
-            <input type="text" class="form-control" id="palavra_passe" value='<%= afiliado.palavra_passe %>' name="palavra_passe" placeholder="Palavra passe">
+            <input type="text" class="form-control" id="palavra_passe" name="palavra_passe" placeholder="Palavra passe">
         </div>
 
 
 
         <div class="form-group mt-2">
             <label for="telefone">Telefone(ddd)</label>
-            <input type="text" class="form-control" id="telefone" value="<%= afiliado.telefone %>" name="telefone" placeholder="Telefone">
+            <input required type="text" class="form-control" id="telefone" value="<%= afiliado.telefone %>" name="telefone" placeholder="Telefone">
         </div>
 
 
         <div class="form-group mt-2">
             <label for="email">email</label>
-            <input type="email" class="form-control" id="email" value="<%=  afiliado.email  %>" name="email" placeholder="Palavra passe">
+            <input required type="email" class="form-control" id="email" value="<%=  afiliado.email  %>" name="email" placeholder="Palavra passe">
         </div>
 
         <div class="form-group mt-2">
@@ -85,7 +85,7 @@
         </div>
 
 
-       <center><button type="submit" class="btn btn-success mt-5">SALVAR</button></center> 
+       <center><button type="submit" id="enviar" class="btn btn-success mt-5">SALVAR</button></center> 
         
     </form>
 
@@ -93,38 +93,7 @@
 
 </div>
 <script>
-
-    
-
-
-    $('#form').submit(function(e){
-    
-    var erro = false
-    var form = $(this);
-    obrigatorio = ['nome_loja', 'nome_proprietario', 'palavra_passe', 'telefone', 'email', 'cpf_cnpj', 'assistencia'];
-    for (let i = 0; i < obrigatorio.length; i++) {
-        if ($('#'+obrigatorio[i]).val() == '') {
-            erro = true
-            alert('Preencha todos os campos');
-            return;
-        }
-    }
-
-
-
-
-    if(erro == true){
-        e.preventDefault();
-        
-    }else{
-        form.submit();
-    }
-
-});
-
-
-
-
-    
-
-</script>
+    $("#form").submit(function(){
+        $('#enviar').prop('disabled',true)
+    })
+    </script>

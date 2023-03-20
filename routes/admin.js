@@ -14,6 +14,22 @@ const { regioes } = require('../main.js');
 
 
 // - inicio - funcoes - inicio - //
+
+function separar_produtos_loja(produtos){
+separados = {}
+produtos.forEach(produto => {
+    lista_loja = []
+    if(separados[produto.loja] == undefined){
+        lista_loja.push(produto)
+        separados[produto.loja] = lista_loja
+    }else{
+        separados[produto.loja].push(produto)
+    }
+
+}); 
+return separados
+}
+
 async function gerarCodigo() {
   let valid = false;
   while(!valid) {

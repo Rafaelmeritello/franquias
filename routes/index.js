@@ -39,14 +39,18 @@ router.get("/informavenda/:id/:quantidade",async function(req,res){
 })
 
 
+
+
 router.get("/informadevolucao/:id/:quantidade",async function(req,res){
   produto = await databaseAdmin.buscarobjeto_por_id('produtos',req.params.id)
   if (!produto){
     res.send("nenhum produto com esse codigo foi encontrado")
   }
   quantidade = req.params.quantidade
-
-    produto.estoque = produto.estoque - quantidade
+    if(produto.estoque > 0){
+      produto.estoque = produto.estoque - quantidade
+    }
+    
     produto.devolucoes = parseInt(produto.devolucoes) + parseInt(quantidade)
     await databaseAdmin.atualizarobjeto_por_id('produtos',req.params.id,produto)
     res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=Solicitacao de devolucao enviada com sucesso, o recolhimento podera ser feito a qualquer momento`)

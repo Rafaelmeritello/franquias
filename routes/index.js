@@ -15,8 +15,9 @@ router.get('/dadosafiliado/:codigo?',async function(req,res){
   if(! afiliado){
     res.send("não foi encontrada nenhum afiliado com esse codigo") 
   }
+  avisodasemana = await databaseAdmin.buscarobjeto_por_id('avisodasemana','641981ad8ba8c3a9a4503972')
   produtos = await databaseAdmin.listaObjetos('produtos',{codigo_loja:afiliado.codigo})
-  res.render('model.ejs', {msg:msg,pagina:'afiliados/verafiliado.ejs',titulo:afiliado.nome_loja, afiliado:afiliado, produtos:produtos})
+  res.render('model.ejs', {aviso:avisodasemana.texto,msg:msg,pagina:'afiliados/verafiliado.ejs',titulo:afiliado.nome_loja, afiliado:afiliado, produtos:produtos})
 })
 
 
@@ -28,7 +29,8 @@ router.get("/informavenda/:id/:quantidade",async function(req,res){
     res.send("nenhum produto com esse codigo foi encontrado")
   }
   quantidade = req.params.quantidade
-  if(quantidade > produto.estoque){
+  if(parseInt(quantidade) > parseInt(produto.estoque)){
+    console.log(`quantidade: ${quantidade} estoque: ${produto.estoque}`)
     res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=quantidade maior que o estoque`)
   }else{
     produto.estoque = produto.estoque - quantidade

@@ -19,11 +19,16 @@ function separar_produtos_loja(produtos){
 separados = {}
 produtos.forEach(produto => {
     lista_loja = []
-    if(separados[produto.loja] == undefined){
+    if(separados[produto.nome_loja] == undefined){
         lista_loja.push(produto)
-        separados[produto.loja] = lista_loja
+      
+        separados[produto.nome_loja] ={produtos: lista_loja, codigo_loja: produto.codigo_loja}
+
+
+
     }else{
-        separados[produto.loja].push(produto)
+        separados[produto.nome_loja].produtos.push(produto)
+   
     }
 
 }); 
@@ -269,7 +274,7 @@ router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async fu
     const hash = await bcrypt.hash(req.body.palavra_passe, 10)
     req.body.palavra_passe = hash
   }
-  console.log(req.body)
+
   
   await databaseAdmin.atualizarobjeto('afiliados',{codigo:req.params.codigo},req.body)
   res.redirect(`/dadosafiliado/${req.params.codigo}`)
@@ -289,8 +294,9 @@ router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async fu
 
 
 router.get('/apagarafiliado/:codigo', login_administrador_obrigatorio, async function(req,res){
-
+    await databaseAdmin.excluir_objeto_multiplos('produtos',{codigo_loja:req.params.codigo})
     await databaseAdmin.excluir_objeto_multiplos('afiliados',{codigo:req.params.codigo})
+    
 
     res.redirect('/admin/painel')
 
@@ -429,7 +435,42 @@ router.post("/editarproduto/:id",login_administrador_obrigatorio, async function
 
 
 
+
+
+
+
+
+
+
+  router.get('/vendasedevolucoes' ,async function(req,res){
+    msg = req.query.msg
+    produtos = await databaseAdmin.listaObjetos('produtos', {  $or:[ {vendidos:{$gt:0}} ,  {devolucoes:{$gt:0}}  ]  })
+    produtos = separar_produtos_loja(produtos)
+
+    res.render('model',{titulo:'Listagem', pagina:'produtos/vendasedevolucoes.ejs', produtos:produtos, msg:msg})
+    
+  })
+
+
 // produtos fim
+
+
+
+// aviso da semana inicio
+
+router.get("/editaravisodasemana", login_administrador_obrigatorio, async function(req,res){
+  msg = req.query.msg
+  aviso = await databaseAdmin.buscarobjeto_por_id('avisodasemana','641981ad8ba8c3a9a4503972')
+  
+  res.render('model',{titulo:'Incluir aviso da semana', pagina:'avisos/editaravisodasemana.ejs', msg:msg, aviso:aviso.texto})
+})
+
+router.post("/editaravisodasemana",login_administrador_obrigatorio, async function(req,res){
+  databaseAdmin.atualizarobjeto_por_id('avisodasemana','641981ad8ba8c3a9a4503972',req.body)
+  res.redirect(`/admin/editaravisodasemana?msg=aviso da semana editado com sucesso`)
+})
+// aviso da semana fim
+
 
 module.exports = router;
 

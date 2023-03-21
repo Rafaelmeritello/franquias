@@ -68,11 +68,16 @@ Fim container -->
   <div class="container alerta-box" style="  display: flex; justify-content: center; align-items: center;">
     <div class="row">
       <div class="col-12">
-        <h5 style="color: red;font-weight: bold;">Aviso</h5>
-        <span><%= typeof produtos %>  ipsum dolor sit amet consectetur adipisicing elit. Magnam sint odio iure voluptatibus vel consequuntur et quos quas quod aspernatur. Aut officia quod nisi natus illum facere nemo non quaerat?</span>
+        <h5 style="color: red;font-weight: bold;">Novidade da semana</h5>
+        <% if(aviso != '') { %>
+        <span><%= aviso %></span>
+        <% } else { %>
+        <span >Nada por aqui.</span>
+        <% } %>
+
       </div>
     </div>
-    <!-- <span>Sem avisos por Hoje</span> -->
+
 
     </div>
 

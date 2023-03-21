@@ -1,5 +1,6 @@
 
-<h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1>
+<a href='/admin/painel'><h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1></a>
+<center><a href="/dadosafiliado/<%=codigoloja%>"><span class="text-white text-center">Voltar para pagina da loja</span></a></center>
 <div class="d-flex justify-content-center align-items-center">
 
 
@@ -67,7 +68,7 @@
     })
 
     function apagar(){
-      code = '<%= afiliado.codigo %>'
+ 
       if (confirm("Esta ação removera o produto <%= produto.nome %> para sempre. aperte 'ok' para confirmar")) {
       window.location.href = '/admin/apagarproduto/<%= produto._id %>'
 } else {

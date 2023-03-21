@@ -407,7 +407,7 @@ router.post("/editarproduto/:id",login_administrador_obrigatorio, async function
   }
   if(err == false){
     databaseAdmin.atualizarobjeto_por_id('produtos',req.params.id,req.body)
-    res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=produto editado com sucesso`)
+    res.redirect(`/admin/editarproduto/${req.params.id}?msg=Produto editado com sucesso`)
   }
   })
 

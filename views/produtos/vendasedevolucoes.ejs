@@ -2,7 +2,7 @@
 <div class="d-flex flex-column justify-content-center align-items-center text-white">
   <a href='/admin/painel'><h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1></a>
 
-   
+   <% if(produtos.length > 0){ %>
   
         <% for(var loja in produtos){ %>
             <div class="container container-plus m-5 flex-column d-flex p-1" style="  border: 2px solid  white; border-radius: 10px;">
@@ -52,9 +52,15 @@
     
      
   
-
+<% } else { %>
+  <div class="container mb-4" style="  display: flex; justify-content: center; align-items: center;">
+    <div class="mt-5 p-5" style=" border: 2px solid  wheat; border-radius: 10px;">
+      <h2 class="text-center ">Nada por aqui... talvez mais tarde</h2>
+  </div>
+  </div>
+ 
   
-  
+  <% } %>
   </div>
   
   

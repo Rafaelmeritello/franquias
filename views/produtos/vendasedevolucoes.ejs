@@ -1,10 +1,11 @@
-<div class="d-flex flex-column justify-content-center align-items-center text-white">
 
+<div class="d-flex flex-column justify-content-center align-items-center text-white">
+    <h1 >Administrador: <%= locals.administrador %></h1>
    
   
         <% for(var loja in produtos){ %>
             <div class="container container-plus m-5 flex-column d-flex p-1" style="  border: 2px solid  white; border-radius: 10px;">
-            <a href="/dadosafiliado/<%= produtos[loja].codigo_loja %>"><h3 class="mb-5"> <%= loja %> </h3></a>
+            <a href="/dadosafiliado/<%= produtos[loja].codigo_loja %>"><h2 class="mb-5"> <%= loja %> </h2></a>
           
               <% for(var i = 0; i < produtos[loja].produtos.length; i++){ %>
           

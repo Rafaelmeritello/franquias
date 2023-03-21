@@ -447,7 +447,7 @@ router.post("/editarproduto/:id",login_administrador_obrigatorio, async function
     produtos = await databaseAdmin.listaObjetos('produtos', {  $or:[ {vendidos:{$gt:0}} ,  {devolucoes:{$gt:0}}  ]  })
     produtos = separar_produtos_loja(produtos)
 
-    res.render('model',{titulo:'Listagem', pagina:'produtos/vendasedevolucoes.ejs', produtos:produtos, msg:msg})
+    res.render('model',{titulo:'Vendas/Devoluções', pagina:'produtos/vendasedevolucoes.ejs', produtos:produtos, msg:msg})
     
   })
 

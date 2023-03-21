@@ -1,3 +1,7 @@
+<% if (typeof locals.administrador != 'undefined'){ %>
+  <a href='/admin/painel'><h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1></a>
+
+  <% } %>
 <div class="d-flex flex-column justify-content-center align-items-center">
 
   <div class="container container-plus">
@@ -46,6 +50,9 @@
 
     <% } else { %>
       <h5 style="color: orange;">Para alterações de dados entre em contato</h5>
+      
+    <hr style="width:100%;text-align:left; margin-top:1em; color: white;">
+      <a href='/logout'><h5 class='text-center mt-1 text-danger'>Logout<%= locals.administrador%></h5></a>
     <% } %>
 
   

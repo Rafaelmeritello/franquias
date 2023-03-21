@@ -1,0 +1,92 @@
+
+<div class="d-flex flex-column justify-content-center align-items-center text-white">
+
+    <div class="container mx-auto" style="  display: flex; justify-content: center; align-items: center;">
+      <div class="mt-5 p-5" style=" border: 2px solid  wheat; border-radius: 10px;">
+        <h2 class="text-center ">Nada por aqui... </h2><br>
+        <center><span id='msg' class="text-center">Somos sua melhor altternativa</span></center>
+    </div>
+
+    </div>
+   
+    
+    
+    </div>
+    
+    
+    
+    
+    <script>
+                mensagens = [
+          "Somos sua melhor altternativa",
+          "Dentre tantas escolhas você escolheu a melhor altternativa",
+          "Apenas o som do vento",
+          "continue a nadar...",
+          "Ok... quem sabe um dia tenha algo",
+          "sou Apenas um erro 404, finja que não me viu",
+          "Nossa, que lugar silêncioso",
+          "Tudo mais é apenas altternativas...",
+          "Oops! Parece que você encontrou uma altternativa inexistente!",
+          "Parece que você encontrou um beco sem Altternativa!",
+          "Parece que você escolheu a altternativa certa mas a opção errada, volte e tente novamente!"
+          ]
+       random = Math.floor(Math.random() * mensagens.length);
+
+          $('#msg').text(mensagens[random]);
+    </script>
+    
+    
+    
+    
+    
+    
+    
+      <style>
+        .container-plus {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  
+      max-width: 650px;
+    }
+  
+    
+    
+    
+    
+     /* Celular  horizontal */
+    @media only screen and (700px <= width <= 901px) {
+  
+    }
+    
+      /* Celular */
+      @media only screen and (max-width: 700px) {
+  
+    }
+    /* 
+      pc */
+    @media only screen and (min-width: 901px) { 
+  
+    
+     }
+    
+    
+     .produto-info{
+      border: 2px solid  wheat;
+      border-radius: 10px;
+      padding: 40px;
+      text-align: center;
+      max-width: 300px;
+      width: 100%;
+  
+      color: white;
+     }
+    
+  
+    
+  
+  
+  
+    
+    
+      </style>

@@ -29,8 +29,6 @@ app.use(session({
   }
 }));
 
-
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -40,10 +38,12 @@ app.use('/images',express.static(path.join(__dirname, 'public/images')));
 app.use('/js',express.static(path.join(__dirname, 'public/javascripts')));
 app.use('/css',express.static(path.join(__dirname, 'public/stylesheets')));
 
+
 app.use(function(req, res, next) {
   res.locals.administrador = req.session.administrador ;
   next();
 });
+
 
 
 

@@ -1,17 +1,93 @@
 var express = require('express');
 var router = express.Router();
 const {databaseAdmin} = require('../database_singlenton')
+const bcrypt = require('bcryptjs');
+const bcryptInstance = bcrypt;
 
+
+// login inicio
 router.get('/', function(req, res, next) {
-  res.send('Em Construção');
+
+  if(req.session.afiliado){
+    res.redirect('/dadosafiliado/'+req.session.afiliado)
+  }else{
+    delete req.session.administrador
+    delete req.session.afiliado
+  res.render('afiliado_login.ejs');
+  }
 });
 
 
 
+
+
+
+
+router.post('/login',  async function(req,res){
+
+
+  codigo_loja = req.body.codigo
+
+  databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:codigo_loja}).then((loja) => {
+
+    if(loja == null){
+ 
+      res.redirect('/')
+    }else{
+     
+      bcryptInstance.compare(req.body.senha, loja.palavra_passe, function(err, result) {
+
+        if(result){
+          req.session.afiliado = codigo_loja
+      
+          res.redirect('/dadosafiliado/'+codigo_loja+'?msg=login efetuado com sucesso')
+        }else{
+
+          res.redirect('/')
+        }
+      });
+    }
+  }).catch((err) => {
+
+    res.redirect('/')
+
+  })
+  })
+
+
+
+  router.get('/logout', function(req,res){
+    delete req.session.administrador
+    delete req.session.afiliado
+    res.redirect('/')
+  })
+
+
+// login fim
+
+
+
+
+
 router.get('/dadosafiliado/:codigo?',async function(req,res){
+  if(!req.session.afiliado && !req.session.administrador){
+    res.redirect('/')
+    return;
+  }
+  if(req.session.afiliado && req.session.afiliado != req.params.codigo){
+    res.redirect('/dadosafiliado/'+req.session.afiliado)
+    return;
+  }
+
   msg = req.query.msg
+  
  codigo = req.params.codigo || req.query.codigo  
  afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:codigo})
+ if(! afiliado){
+    afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{cpf_cnpj:req.query.codigo})
+    res.redirect('/dadosafiliado/'+afiliado.codigo)
+ }
+
   if(! afiliado){
     res.send("não foi encontrada nenhum afiliado com esse codigo") 
   }
@@ -28,6 +104,14 @@ router.get("/informavenda/:id/:quantidade",async function(req,res){
   if (!produto){
     res.send("nenhum produto com esse codigo foi encontrado")
   }
+  if(!req.session.afiliado && !req.session.administrador){
+    res.redirect('/')
+  }
+  if(produto.codigo_loja != req.session.afiliado && !req.session.administrador){
+    res.redirect('/dadosafiliado/'+req.session.afiliado)
+  }
+
+
   quantidade = req.params.quantidade
   if(parseInt(quantidade) > parseInt(produto.estoque)){
     console.log(`quantidade: ${quantidade} estoque: ${produto.estoque}`)
@@ -48,6 +132,13 @@ router.get("/informadevolucao/:id/:quantidade",async function(req,res){
   if (!produto){
     res.send("nenhum produto com esse codigo foi encontrado")
   }
+  if(!req.session.afiliado && !req.session.administrador){
+    res.redirect('/')
+  }
+  if(produto.codigo_loja != req.session.afiliado && !req.session.administrador){
+    res.redirect('/dadosafiliado/'+req.session.afiliado)
+  }
+
   quantidade = req.params.quantidade
 
     
@@ -58,4 +149,8 @@ router.get("/informadevolucao/:id/:quantidade",async function(req,res){
 })
 
 
+
+router.use((req, res, next) => {
+  res.status(404).render('model', { titulo: 'Página não encontrada' , pagina:'404.ejs'});
+});
 module.exports = router;

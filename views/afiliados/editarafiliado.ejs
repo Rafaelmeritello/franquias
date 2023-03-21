@@ -66,7 +66,7 @@
         
         <div class="form-group mt-2">
             <label for="cpf_cnpj">CNPJ/CPF</label>
-            <input type="text" value="<%= afiliado.cpf_cnpj %>" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="CNPJ">
+            <input type="text"   value="<%= afiliado.cpf_cnpj %>" class="form-control" id="cpf_cnpj" name="cpf_cnpj" placeholder="CNPJ">
         </div>
 
         <div class="form-group mt-2">
@@ -96,5 +96,23 @@
 <script>
     $("#form").submit(function(){
         $('#enviar').prop('disabled',true)
+    })
+
+
+    $('#cpf_cnpj').blur(function(){
+        var cpf_cnpj = $(this).val()
+        $.ajax({
+            url: '/admin/cpf_cnpjexistente',
+            type: 'post',
+            data: {cpf_cnpj: cpf_cnpj},
+            success: function(data){
+                if(data == true && $('#cpf_cnpj').val() != '<%= afiliado.cpf_cnpj %>'){
+
+                    alert('CNPJ/CPF inserido já esta cadastrado, estamos retornando ao cpf/cnpj original')
+
+                    $('#cpf_cnpj').val('<%= afiliado.cpf_cnpj %>')
+                }
+            }
+      })  
     })
     </script>

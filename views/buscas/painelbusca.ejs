@@ -1,4 +1,5 @@
-<a href='/admin/painel'><h1 class='text-center mt-2 text-white'>Administrador: <%= locals.administrador%></h1></a>
+<h1 class='text-center mt-2 text-white' >Administrador: <%= locals.administrador%></h1>
+
 <div class="d-flex flex-column justify-content-center align-items-center mt-5">
 
 
@@ -7,8 +8,8 @@
 <form>
 <div class="form-group ">
 <center>
-<label for='codigo' class="text-white">Código:</label>
-<input required type="number" class="form-control" style="max-width: 200px;" name='codigo' id='codigo'></center>
+<label for='codigo' class="text-white">Código ou cpf/cnpj:</label>
+<input type="number" class="form-control" style="max-width: 200px;" name='codigo' id='codigo'></center>
 </div>
 <button class="btn btn-primary botao" style="max-width: 300px;" type="submit">Buscar</button>
 </form>
@@ -50,21 +51,7 @@
 </style>
 
 <script>
-        $('#codigo').blur(function(){
-        var codigo = $(this).val()
-        $.ajax({
-            url: '/admin/codigoexistente',
-            type: 'post',
-            data: {codigo: codigo},
-            success: function(data){
-                if(data == false){
 
-                    alert('Código não existe')
 
-                    $('#codigo').val('')
-                }
-            }
-      })  
-
-    })
+    
 </script>

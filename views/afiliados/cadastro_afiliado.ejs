@@ -116,5 +116,22 @@
 
     })
     
+    $('#cpf_cnpj').blur(function(){
+        var cpf_cnpj = $(this).val()
+        $.ajax({
+            url: '/admin/cpf_cnpjexistente',
+            type: 'post',
+            data: {cpf_cnpj: cpf_cnpj},
+            success: function(data){
+                if(data == true){
+
+                    alert('CNPJ/CPF já existe')
+
+                    $('#cpf_cnpj').val('')
+                }
+            }
+      })  
+
+    })
 
 </script>

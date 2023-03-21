@@ -67,7 +67,7 @@ function login_administrador_obrigatorio(req,res,next){
 
 // login admin
 router.get('/login/:numero?', function(req, res, next) {
-  
+  delete req.session.afiliado
   delete req.session.administrador
     param = req.params.numero
     erro = undefined;
@@ -167,6 +167,21 @@ router.post('/codigoexistente', function(req, res, next) {
     res.send(false);
   });
 });
+
+
+router.post('/cpf_cnpjexistente', function(req, res, next) {
+  var cnpj = req.body.cpf_cnpj;
+  databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados', {cpf_cnpj: cnpj}).then((result) => {
+    if(result) {
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  }).catch((err) => {
+    res.send(false);
+  });
+});
+
 
 // fim ajax
 
@@ -444,7 +459,8 @@ router.post("/editarproduto/:id",login_administrador_obrigatorio, async function
 
   router.get('/vendasedevolucoes' ,async function(req,res){
     msg = req.query.msg
-    produtos = await databaseAdmin.listaObjetos('produtos', {  $or:[ {vendidos:{$gt:0}} ,  {devolucoes:{$gt:0}}  ]  })
+    produtos = await databaseAdmin.listaObjetos('produtos', { $or: [ { $expr: { $gt: [ { $toInt: "$vendidos" }, 0 ] } }, { $expr: { $gt: [ { $toInt: "$devolucoes" }, 0 ] } } ] })
+
     produtos = separar_produtos_loja(produtos)
 
     res.render('model',{titulo:'Vendas/Devoluções', pagina:'produtos/vendasedevolucoes.ejs', produtos:produtos, msg:msg})

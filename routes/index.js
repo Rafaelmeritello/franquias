@@ -87,15 +87,27 @@ router.get('/dadosafiliado/:codigo?',async function(req,res){
 
   msg = req.query.msg
   
- codigo = req.params.codigo || req.query.codigo  
+ codigo = req.params.codigo  
+ if(!codigo){
+  codigo = req.query.codigo
+ }
+ if(!codigo){
+  req.send("insira um codigo")
+  return;
+ }
  afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:codigo})
  if(! afiliado){
     afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{cpf_cnpj:req.query.codigo})
-    res.redirect('/dadosafiliado/'+afiliado.codigo)
+    if(afiliado){
+      res.redirect('/dadosafiliado/'+afiliado.codigo)
+      return
+    }
+  
  }
 
   if(! afiliado){
     res.send("não foi encontrada nenhum afiliado com esse codigo") 
+    return
   }
   avisodasemana = await databaseAdmin.buscarobjeto_por_id('avisodasemana','641981ad8ba8c3a9a4503972')
   produtos = await databaseAdmin.listaObjetos('produtos',{codigo_loja:afiliado.codigo})

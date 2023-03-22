@@ -131,12 +131,18 @@ router.post('/login', function(req,res){
 // paineis
 
 router.get('/painel',login_administrador_obrigatorio, function(req, res, next) {
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   var msg = req.query.msg;
   res.render('model', {titulo:"Painel de controle", pagina:'adminpainel.ejs'});
 })
 
   
 router.get('/painelbusca',function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   if(!req.session.administrador){
     res.send('acesso negado')
   }
@@ -195,6 +201,7 @@ router.post('/cpf_cnpjexistente', function(req, res, next) {
 
 
 router.get('/cadastroafiliado',  function(req, res) {
+  
   if(!req.session.administrador){
     res.send('acesso negado')
   }
@@ -270,6 +277,9 @@ if(err == false){
 
 
 router.get('/editarafiliado/:codigo?',login_administrador_obrigatorio, async function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   afiliado = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigo})
   if(afiliado){
     res.render('model',{titulo:'Editar', pagina:'afiliados/editarafiliado.ejs', afiliado:afiliado, regioes:regioes})
@@ -282,6 +292,9 @@ router.get('/editarafiliado/:codigo?',login_administrador_obrigatorio, async fun
 
 
 router.post('/editarafiliado/:codigo', login_administrador_obrigatorio, async function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
 
   if(req.body.palavra_passe == ''){
     delete req.body.palavra_passe
@@ -324,7 +337,9 @@ router.get('/apagarafiliado/:codigo', login_administrador_obrigatorio, async fun
 router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async function(req,res){
   regiao = req.query.regiao
   
-
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   afiliados = []
   if(regiao == 'todas'){
     afiliados = await databaseAdmin.listaObjetos('afiliados', {})
@@ -347,6 +362,9 @@ router.get('/listagemafiliadosregiao', login_administrador_obrigatorio ,async fu
 //produtos
 
 router.get("/incluirproduto/:codigoloja",login_administrador_obrigatorio, async function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   msg = req.query.msg
   loja = await databaseAdmin.buscarobjeto_Unico_por_filtro('afiliados',{codigo:req.params.codigoloja})
   if (!loja){
@@ -395,6 +413,9 @@ router.post("/incluirproduto/:codigoloja",login_administrador_obrigatorio, async
 
 
 router.get("/editarproduto/:id",login_administrador_obrigatorio, async function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   msg = req.query.msg
   produto = await databaseAdmin.buscarobjeto_por_id('produtos',req.params.id)
   if (!produto){
@@ -458,6 +479,9 @@ router.post("/editarproduto/:id",login_administrador_obrigatorio, async function
 
 
   router.get('/vendasedevolucoes' ,async function(req,res){
+    res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+    res.header('Expires', '-1');
+    res.header('Pragma', 'no-cache');
     msg = req.query.msg
     produtos = await databaseAdmin.listaObjetos('produtos', { $or: [ { $expr: { $gt: [ { $toInt: "$vendidos" }, 0 ] } }, { $expr: { $gt: [ { $toInt: "$devolucoes" }, 0 ] } } ] })
 
@@ -475,6 +499,9 @@ router.post("/editarproduto/:id",login_administrador_obrigatorio, async function
 // aviso da semana inicio
 
 router.get("/editaravisodasemana", login_administrador_obrigatorio, async function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   msg = req.query.msg
   aviso = await databaseAdmin.buscarobjeto_por_id('avisodasemana','641981ad8ba8c3a9a4503972')
   

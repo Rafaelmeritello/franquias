@@ -7,7 +7,9 @@ const bcryptInstance = bcrypt;
 
 // login inicio
 router.get('/', function(req, res, next) {
-
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   if(req.session.afiliado){
     res.redirect('/dadosafiliado/'+req.session.afiliado)
   }else{
@@ -40,7 +42,7 @@ router.post('/login',  async function(req,res){
         if(result){
           req.session.afiliado = codigo_loja
       
-          res.redirect('/dadosafiliado/'+codigo_loja+'?msg=login efetuado com sucesso')
+          res.redirect(`/dadosafiliado/${codigo_loja}`)
         }else{
 
           res.redirect('/')
@@ -70,6 +72,9 @@ router.post('/login',  async function(req,res){
 
 
 router.get('/dadosafiliado/:codigo?',async function(req,res){
+  res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+  res.header('Expires', '-1');
+  res.header('Pragma', 'no-cache');
   if(!req.session.afiliado && !req.session.administrador){
     res.redirect('/')
     return;
@@ -113,6 +118,9 @@ router.get("/informavenda/:id/:quantidade",async function(req,res){
 
 
   quantidade = req.params.quantidade
+  if (quantidade <=0 ){
+    res.send('erro')
+  }
   if(parseInt(quantidade) > parseInt(produto.estoque)){
     console.log(`quantidade: ${quantidade} estoque: ${produto.estoque}`)
     res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=quantidade maior que o estoque`)
@@ -140,7 +148,9 @@ router.get("/informadevolucao/:id/:quantidade",async function(req,res){
   }
 
   quantidade = req.params.quantidade
-
+  if (quantidade <=0 ){
+    res.send('erro')
+  }
     
     produto.devolucoes = parseInt(produto.devolucoes) + parseInt(quantidade)
     await databaseAdmin.atualizarobjeto_por_id('produtos',req.params.id,produto)

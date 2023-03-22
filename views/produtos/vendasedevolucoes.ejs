@@ -135,6 +135,11 @@
           alert(msg)
           window.location.href = '/admin/vendasedevolucoes'
       }
-  
+      $('.valor').each(function() {
+  var valor = parseFloat($(this).text());
+  var valorFormatado = valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+  $(this).text(valorFormatado);
+});
+
   
     </script>

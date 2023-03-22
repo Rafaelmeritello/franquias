@@ -166,6 +166,7 @@ router.get("/informadevolucao/:id/:quantidade",async function(req,res){
   }
     
     produto.devolucoes = parseInt(produto.devolucoes) + parseInt(quantidade)
+    produto.estoque = produto.estoque - quantidade
     await databaseAdmin.atualizarobjeto_por_id('produtos',req.params.id,produto)
     res.redirect(`/dadosafiliado/${produto.codigo_loja}?msg=Solicitacao de devolucao enviada com sucesso, o recolhimento podera ser feito a qualquer momento`)
   

@@ -371,7 +371,7 @@ router.get("/incluirproduto/:codigoloja",login_administrador_obrigatorio, async 
     res.send("nenhuma loja com esse codigo foi encontrada")
   }
 
-  res.render('model',{titulo:'Incluir produto', pagina:'produtos/incluirproduto.ejs',codigoloja:req.params.codigoloja, msg:msg})
+  res.render('model',{titulo:'Incluir produto', pagina:'produtos/incluirproduto.ejs',codigoloja:req.params.codigoloja,nomeloja:loja.nome_loja, msg:msg})
 })
 
 

@@ -7,6 +7,7 @@ const bcryptInstance = bcrypt;
 
 // login inicio
 router.get('/', function(req, res, next) {
+  erro = req.query.erro
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
   res.header('Pragma', 'no-cache');
@@ -15,7 +16,7 @@ router.get('/', function(req, res, next) {
   }else{
     delete req.session.administrador
     delete req.session.afiliado
-  res.render('afiliado_login.ejs');
+  res.render('afiliado_login.ejs',{erro:erro});
   }
 });
 
@@ -34,7 +35,7 @@ router.post('/login',  async function(req,res){
 
     if(loja == null){
  
-      res.redirect('/')
+      res.redirect('/?erro=Usuario ou senha incorretos')
     }else{
      
       bcryptInstance.compare(req.body.senha, loja.palavra_passe, function(err, result) {
@@ -45,13 +46,13 @@ router.post('/login',  async function(req,res){
           res.redirect(`/dadosafiliado/${codigo_loja}`)
         }else{
 
-          res.redirect('/')
+          res.redirect('/?erro=Usuario ou senha incorretos')
         }
       });
     }
   }).catch((err) => {
 
-    res.redirect('/')
+    res.redirect('/?erro=Usuario ou senha incorretos')
 
   })
   })

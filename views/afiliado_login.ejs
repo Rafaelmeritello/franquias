@@ -27,12 +27,12 @@
   <form id="loginForm" action="/login" method="post" >
         <div class="mb-3">
             <label class="form-label" for="usuario">Código</label>
-            <input name="codigo" class="form-control" id="codigo" type="number" placeholder="Código da sua loja" data-sb-validations="required" />
+            <input name="codigo" required class="form-control" id="codigo" type="number" placeholder="Código da sua loja" data-sb-validations="required" />
             <div class="invalid-feedback" data-sb-feedback="usuario:required">Usuario </div>
         </div>
         <div class="mb-3">
             <label class="form-label" for="senha">Palavra passe</label>
-            <input class="form-control" id="senha" name="senha" type="password" placeholder="palavra-passe" data-sb-validations="required" />
+            <input class="form-control" required id="senha" name="senha" type="password" placeholder="palavra-passe" data-sb-validations="required" />
             <div class="invalid-feedback" data-sb-feedback="senha:required">palavra-passe .</div>
         </div>
     

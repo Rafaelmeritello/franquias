@@ -87,7 +87,7 @@ var indexRouter = require('./routes/index');
 
 
 app.use('/admin', adminRouter);
-app.use('', indexRouter);
+app.use('/', indexRouter);
 
 
 

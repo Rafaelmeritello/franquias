@@ -6,7 +6,7 @@ const bcryptInstance = bcrypt;
 
 
 // login inicio
-router.get('/', function(req, res, next) {
+router.get('', function(req, res, next) {
   erro = req.query.erro
   res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
   res.header('Expires', '-1');
